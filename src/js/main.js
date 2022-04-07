@@ -1,8 +1,19 @@
 'use strict';
 const searchInput = document.querySelector('.js-search__input');
-let cocktailData = '';
+let cocktailData = [];
 const cocktailDataList = document.querySelector('.js-cocktail__list');
 const searchButton = document.querySelector('.js-search__button');
+
+function emptyAvatar(data) {
+  for (const drink of data) {
+    if (drink.strDrinkThumb === null) {
+      drink.strDrinkThumb = `https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSgdRaq2P7x32D8eIIf-LoP0nehibaasT5SRQ&usqp=CAU`;
+      renderFilteredList(data);
+    } else {
+      renderFilteredList(data);
+    }
+  }
+}
 
 function renderFilteredList(data) {
   for (const drink of data) {
@@ -18,7 +29,7 @@ function getFromApi() {
     .then((response) => response.json())
     .then((data) => {
       cocktailData = data.drinks;
-      renderFilteredList(cocktailData);
+      emptyAvatar(cocktailData);
     });
 }
 
