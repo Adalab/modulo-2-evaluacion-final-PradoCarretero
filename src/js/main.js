@@ -4,13 +4,10 @@ let cocktailData = '';
 const cocktailDataList = document.querySelector('.js-cocktail__list');
 const searchButton = document.querySelector('.js-search__button');
 
-/* function renderFilteredList(data) {
+function renderFilteredList(data) {
   for (const drink of data) {
-    cocktailDataList.innerHTML = `<li><h2>title</h2><img src="" alt=""></li>`;
+    cocktailDataList.innerHTML += `<li><h2>${drink.strDrink}</h2><img class="drink_img" src=${drink.strDrinkThumb} alt=""></li>`;
   }
-} */
-function filterDataDrinks(data) {
-  console.log(data);
 }
 
 function getFromApi() {
@@ -21,9 +18,8 @@ function getFromApi() {
     .then((response) => response.json())
     .then((data) => {
       cocktailData = data.drinks;
-      filterDataDrinks(cocktailData);
+      renderFilteredList(cocktailData);
     });
-  /*  renderFilteredList(cocktailData); */
 }
 
 function handleFilter(event) {
