@@ -11,14 +11,18 @@
   <body>
     <h1>Buscador cócteles</h1>
     <form action="">
-      <input type="text" name="" id="" placeholder="P.ej margarita" />
-      <button>Buscar</button>
+      <input
+        class="js-search__input"
+        type="text"
+        name=""
+        id=""
+        placeholder="P.ej margarita"
+      />
+      <button class="js-search__button">Buscar</button>
       <button>Reset</button>
     </form>
-    <ul class="js-cocktailList"></ul>
-    <ul class="js-cocktailFavorite"></ul>
-    <include src="./partials/header.html"></include>
-    <include src="./partials/main.html"></include>
+    <ul class="js-cocktail__list"></ul>
+    <ul class="js-cocktail__favorite"></ul>
     <script type="text/javascript" src="../js/main.js"></script>
   </body>
 </html>
