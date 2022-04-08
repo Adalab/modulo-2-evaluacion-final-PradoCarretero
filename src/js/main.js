@@ -28,12 +28,17 @@ function handleCardClick(event) {
 
 function getLocalStorage() {
   const localStorageFavDrinks = localStorage.getItem('favorites');
-  const arrayDrinks = JSON.parse(localStorageFavDrinks);
-  favorites = arrayDrinks;
 
-  console.log('favoritos desde get local');
-  console.log(favorites);
-  renderFavoritesLocal();
+  if (localStorageFavDrinks === null) {
+    favoriteDataList.innerHTML = '';
+  } else {
+    const arrayDrinks = JSON.parse(localStorageFavDrinks);
+    favorites = arrayDrinks;
+
+    console.log('favoritos desde get local');
+    console.log(favorites);
+    renderFavoritesLocal();
+  }
 }
 
 function renderFavoritesLocal() {
