@@ -1,7 +1,7 @@
 'use strict';
 const searchInput = document.querySelector('.js-search__input');
 const cocktailCardList = document.querySelector('.js-cocktail__list');
-const favoriteDataList = document.querySelector('.js-favorite__list');
+let favoriteDataList = document.querySelector('.js-favorite__list');
 const searchButton = document.querySelector('.js-search__button');
 let cocktailData = [];
 let favorites = [];
@@ -64,14 +64,37 @@ function emptyAvatar(data) {
 }
 
 function renderFavoritesLocal() {
-  let htmlFav = '';
+  favoriteDataList.innerHTML = '';
   let favClass = '';
   for (const drink of favorites) {
-    console.log(drink.name);
+    /* li */
     favClass = 'drink__favorite';
-    htmlFav += `<li class="js-cocktail__card ${favClass}" id="${drink.id}"><h2>${drink.name}</h2><img class="drink_img" src=${drink.image} alt=""><button id="${drink.id} class="dislikebutton js-dislike-button">MAS</button></li>`;
+
+    const favCard = document.createElement('li');
+    favCard.classList.add('js-cocktail__card');
+    favCard.classList.add(favClass);
+    favCard.setAttribute('id', drink.id);
+    favoriteDataList.appendChild(favCard);
+    /* title */
+    const favCardTitle = document.createElement('h2');
+    const textFavCardTitle = document.createTextNode(drink.name);
+    favCardTitle.appendChild(textFavCardTitle);
+    favCard.appendChild(favCardTitle);
+    /* imagen */
+    const favCardImg = document.createElement('img');
+    favCardImg.classList.add('drink_img');
+    favCardImg.src = drink.image;
+    favCardImg.alt = drink.name;
+    favCard.appendChild(favCardImg);
+    /* boton */
+    const favCardBtn = document.createElement('button');
+    favCardBtn.setAttribute('id', drink.id);
+    favCardBtn.classList.add('dislikebutton');
+    favCardBtn.classList.add('js-dislike-button');
+    const textfavCardBtn = document.createTextNode('MAS');
+    favCardBtn.appendChild(textfavCardBtn);
+    favCard.appendChild(favCardBtn);
   }
-  favoriteDataList.innerHTML = htmlFav;
   listenDislikeButton();
 }
 
@@ -131,11 +154,11 @@ function handleDislikeClick(event) {
   });
   if (favoritesFound !== -1) {
     favorites.splice(favoritesFound, 1);
-    console.log('soy favorito');
+    console.log('YO ME BORRO');
+    console.log(favorites);
+    renderFavoritesLocal();
   }
-  setFavInLocalStorage();
-  renderFavoritesLocal();
-  renderFilteredList(cocktailData);
+  /* renderFilteredList(cocktailData); */
 }
 
 function handleSearchButton(event) {
