@@ -30,8 +30,21 @@ function getLocalStorage() {
   const localStorageFavDrinks = localStorage.getItem('favorites');
   const arrayDrinks = JSON.parse(localStorageFavDrinks);
   favorites = arrayDrinks;
+
   console.log('favoritos desde get local');
   console.log(favorites);
+  renderFavoritesLocal();
+}
+
+function renderFavoritesLocal() {
+  let htmlFav = '';
+  let favClass = '';
+  for (const drink of favorites) {
+    console.log(drink.name);
+    favClass = 'drink__favorite';
+    htmlFav += `<li class="js-cocktail__card ${favClass}" id="${drink.id}"><h2>${drink.name}</h2><img class="drink_img" src=${drink.image} alt=""></li>`;
+  }
+  favoriteDataList.innerHTML = htmlFav;
 }
 
 function isFavorite(data) {
