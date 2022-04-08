@@ -22,7 +22,16 @@ function handleCardClick(event) {
     favorites.splice(favoritesFound, 1);
     console.log('soy favorito');
   }
+  setFavInLocalStorage();
   renderFilteredList(cocktailData);
+}
+
+function getLocalStorage() {
+  const localStorageFavDrinks = localStorage.getItem('favorites');
+  const arrayDrinks = JSON.parse(localStorageFavDrinks);
+  favorites = arrayDrinks;
+  console.log('favoritos desde get local');
+  console.log(favorites);
 }
 
 function isFavorite(data) {
@@ -84,6 +93,11 @@ function getFromApi() {
     });
 }
 
+function setFavInLocalStorage() {
+  const stringFavDrinks = JSON.stringify(favorites);
+  localStorage.setItem('favorites', stringFavDrinks);
+}
+
 function handleSearchButton(event) {
   event.preventDefault();
   getFromApi();
@@ -97,3 +111,5 @@ function listenCardClick() {
 }
 
 searchButton.addEventListener('click', handleSearchButton);
+
+getLocalStorage();
