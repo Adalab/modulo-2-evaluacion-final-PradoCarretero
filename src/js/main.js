@@ -1,15 +1,13 @@
 'use strict';
 const searchInput = document.querySelector('.js-search__input');
-const cocktailDataList = document.querySelector('.js-cocktail__list');
+const cocktailCardList = document.querySelector('.js-cocktail__list');
+const favoriteDataList = document.querySelector('.js-favorite__list');
 const searchButton = document.querySelector('.js-search__button');
 let cocktailData = [];
 let favorites = [];
 
 function handleCardClick(event) {
   const clickedItemId = event.currentTarget.id;
-  /* console.log(event.currentTarget);
-  console.log(clickedItemId); */
-
   const objetClicked = cocktailData.find((itemDrink) => {
     return itemDrink.id === clickedItemId;
   });
@@ -59,7 +57,7 @@ function renderFilteredList(data) {
 
     html += `<li class="js-cocktail__card ${favClass}" id="${drink.id}"><h2>${drink.name}</h2><img class="drink_img" src=${drink.image} alt=""></li>`;
   }
-  cocktailDataList.innerHTML = html;
+  cocktailCardList.innerHTML = html;
   listenCardClick();
 }
 
