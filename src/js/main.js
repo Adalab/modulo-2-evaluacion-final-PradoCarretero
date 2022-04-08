@@ -37,7 +37,12 @@ function getLocalStorage() {
 
     console.log('favoritos desde get local');
     console.log(favorites);
-    renderFavoritesLocal();
+    let htmlFav = '';
+    for (const drink of favorites) {
+      renderFavoritesLocal(drink);
+    }
+    favoriteDataList.innerHTML = htmlFav;
+    listenDislikeButton();
   }
 }
 
@@ -64,26 +69,16 @@ function emptyAvatar(data) {
 }
 
 function renderFavoritesLocal() {
-  let htmlFav = '';
-  let favClass = '';
-  for (const drink of favorites) {
-    console.log(drink.name);
-    favClass = 'drink__favorite';
-    htmlFav += `<li class="js-cocktail__card ${favClass}" id="${drink.id}"><h2>${drink.name}</h2><img class="drink_img" src=${drink.image} alt=""><button id="${drink.id} class="dislikebutton js-dislike-button">MAS</button></li>`;
-  }
-  favoriteDataList.innerHTML = htmlFav;
-  listenDislikeButton();
+  favClass = 'drink__favorite';
+  htmlFav += `<li class="js-cocktail__card ${favClass}" id="${drink.id}"><h2>${drink.name}</h2><img class="drink_img" src=${drink.image} alt=""><button id="${drink.id} class="dislikebutton js-dislike-button">MAS</button></li>`;
 }
 
 function renderFilteredList(data) {
   let html = '';
-  let htmlFav = '';
   let favClass = '';
   for (const drink of data) {
     const isFav = isFavorite(drink);
     if (isFav) {
-      favClass = 'drink__favorite';
-      htmlFav += `<li class="js-cocktail__card ${favClass}" id="${drink.id}"><h2>${drink.name}</h2><img class="drink_img" src=${drink.image} alt=""><button id="${drink.id} class="dislikebutton js-dislike-button">MAS</button></li>`;
     } else {
       favClass = '';
       html += `<li class="js-cocktail__card ${favClass}" id="${drink.id}"><h2>${drink.name}</h2><img class="drink_img" src=${drink.image} alt=""></li>`;
