@@ -12,12 +12,15 @@ function handleCardClick(event) {
     return itemDrink.id === clickedItemId;
   });
   const favoritesFound = favorites.findIndex((fav) => {
-    return fav.id === objetClicked;
+    return fav.id === clickedItemId;
   });
   if (favoritesFound === -1) {
+    console.log('no estoy entre los favoritos');
+    console.log(favorites);
     favorites.push(objetClicked);
   } else {
     favorites.splice(favoritesFound, 1);
+    console.log('soy favorito');
   }
   renderFilteredList(cocktailData);
 }
@@ -46,18 +49,20 @@ function emptyAvatar(data) {
 
 function renderFilteredList(data) {
   let html = '';
+  let htmlFav = '';
   let favClass = '';
   for (const drink of data) {
     const isFav = isFavorite(drink);
     if (isFav) {
       favClass = 'drink__favorite';
+      htmlFav += `<li class="js-cocktail__card ${favClass}" id="${drink.id}"><h2>${drink.name}</h2><img class="drink_img" src=${drink.image} alt=""></li>`;
     } else {
       favClass = '';
+      html += `<li class="js-cocktail__card ${favClass}" id="${drink.id}"><h2>${drink.name}</h2><img class="drink_img" src=${drink.image} alt=""></li>`;
     }
-
-    html += `<li class="js-cocktail__card ${favClass}" id="${drink.id}"><h2>${drink.name}</h2><img class="drink_img" src=${drink.image} alt=""></li>`;
   }
   cocktailCardList.innerHTML = html;
+  favoriteDataList.innerHTML = htmlFav;
   listenCardClick();
 }
 
