@@ -3,12 +3,36 @@ const searchInput = document.querySelector('.js-search__input');
 const cocktailDataList = document.querySelector('.js-cocktail__list');
 const searchButton = document.querySelector('.js-search__button');
 let cocktailData = [];
+let favorites = [];
 
 function handleCardClick(event) {
   const clickedItemId = event.currentTarget.id;
-  console.log(event.currentTarget);
-  console.log(clickedItemId);
-  console.log('he clickado');
+  /* console.log(event.currentTarget);
+  console.log(clickedItemId); */
+
+  const objetClicked = cocktailData.find((itemDrink) => {
+    return itemDrink.id === clickedItemId;
+  });
+  const favoritesFound = favorites.findIndex((fav) => {
+    return fav.id === objetClicked;
+  });
+  if (favoritesFound === -1) {
+    favorites.push(objetClicked);
+  } else {
+    favorites.splice(favoritesFound, 1);
+  }
+  renderFilteredList(cocktailData);
+}
+
+function isFavorite(data) {
+  const favoriteFound = favorites.find((fav) => {
+    return fav.id === data.id;
+  });
+  if (favoriteFound === undefined) {
+    return false;
+  } else {
+    return true;
+  }
 }
 
 function emptyAvatar(data) {
@@ -23,9 +47,19 @@ function emptyAvatar(data) {
 }
 
 function renderFilteredList(data) {
+  let html = '';
+  let favClass = '';
   for (const drink of data) {
-    cocktailDataList.innerHTML += `<li class="js-cocktail__card" id="${drink.id}"><h2>${drink.name}</h2><img class="drink_img" src=${drink.image} alt=""></li>`;
+    const isFav = isFavorite(drink);
+    if (isFav) {
+      favClass = 'drink__favorite';
+    } else {
+      favClass = '';
+    }
+
+    html += `<li class="js-cocktail__card ${favClass}" id="${drink.id}"><h2>${drink.name}</h2><img class="drink_img" src=${drink.image} alt=""></li>`;
   }
+  cocktailDataList.innerHTML = html;
   listenCardClick();
 }
 
