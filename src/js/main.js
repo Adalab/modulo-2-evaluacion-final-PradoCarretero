@@ -91,7 +91,7 @@ function renderFavoritesLocal() {
     favCardBtn.setAttribute('id', drink.id);
     favCardBtn.classList.add('dislikebutton');
     favCardBtn.classList.add('js-dislike-button');
-    const textfavCardBtn = document.createTextNode('MAS');
+    const textfavCardBtn = document.createTextNode('DISLIKE');
     favCardBtn.appendChild(textfavCardBtn);
     favCard.appendChild(favCardBtn);
   }
@@ -106,7 +106,9 @@ function renderFilteredList(data) {
     const isFav = isFavorite(drink);
     if (isFav) {
       favClass = 'drink__favorite';
-      htmlFav += `<li class="js-cocktail__card ${favClass}" id="${drink.id}"><h2>${drink.name}</h2><img class="drink_img" src=${drink.image} alt=""><button id="${drink.id} class="dislikebutton js-dislike-button">MAS</button></li>`;
+      const htmltext = `<li class="js-cocktail__card ${favClass}" id="${drink.id}"><h2>${drink.name}</h2><img class="drink_img" src=${drink.image} alt=""><button id="${drink.id} class="dislikebutton js-dislike-button">DISLIKE</button></li>`;
+      htmlFav += htmltext;
+      html += htmltext;
     } else {
       favClass = '';
       html += `<li class="js-cocktail__card ${favClass}" id="${drink.id}"><h2>${drink.name}</h2><img class="drink_img" src=${drink.image} alt=""></li>`;

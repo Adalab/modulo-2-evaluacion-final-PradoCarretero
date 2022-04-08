@@ -16,3 +16,7 @@ body {
   border: solid 4px lightcoral;
   background-color: lightcoral;
 }
+.wrapper {
+  display: flex;
+  flex-direction: row;
+}
