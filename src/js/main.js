@@ -6,6 +6,26 @@ const searchButton = document.querySelector('.js-search__button');
 let cocktailData = [];
 let favorites = [];
 
+/* function getLocalStorage() {
+  const localStorageFavDrinks = localStorage.getItem('favorites');
+  const arrayDrinks = JSON.parse(localStorageFavDrinks);
+  favorites = arrayDrinks;
+    initialRender();
+} */
+
+/* function initialRender() {
+  let htmlFav = '';
+  console.log('paso por inicialRender');
+  console.log(favorites);
+  for (const drink of favorites) {
+    favClass = 'drink__favorite';
+    htmlFav += `<li class="js-cocktail__card ${favClass}" id="${drink.id}"><h2>${drink.name}</h2><img class="drink_img" src=${drink.image} alt=""></li>`;
+  }
+  favoriteDataList.innerHTML = htmlFav;
+} */
+
+/* getLocalStorage(); */
+
 function handleCardClick(event) {
   const clickedItemId = event.currentTarget.id;
   const objetClicked = cocktailData.find((itemDrink) => {
@@ -22,6 +42,7 @@ function handleCardClick(event) {
     favorites.splice(favoritesFound, 1);
     console.log('soy favorito');
   }
+  setFavInLocalStorage();
   renderFilteredList(cocktailData);
 }
 
@@ -49,7 +70,6 @@ function emptyAvatar(data) {
 
 function renderFilteredList(data) {
   let html = '';
-  let htmlFav = '';
   let favClass = '';
   for (const drink of data) {
     const isFav = isFavorite(drink);
@@ -64,6 +84,11 @@ function renderFilteredList(data) {
   cocktailCardList.innerHTML = html;
   favoriteDataList.innerHTML = htmlFav;
   listenCardClick();
+}
+
+function setFavInLocalStorage() {
+  const stringFavDrinks = JSON.stringify(favorites);
+  localStorage.setItem('favorites', stringFavDrinks);
 }
 
 function getFromApi() {
