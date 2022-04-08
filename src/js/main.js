@@ -38,11 +38,15 @@ function getLocalStorage() {
 
 function renderFavoritesLocal() {
   let htmlFav = '';
-  let favClass = '';
-  for (const drink of favorites) {
-    console.log(drink.name);
-    favClass = 'drink__favorite';
-    htmlFav += `<li class="js-cocktail__card ${favClass}" id="${drink.id}"><h2>${drink.name}</h2><img class="drink_img" src=${drink.image} alt=""></li>`;
+  if (favorites === null) {
+    htmlFav = '';
+  } else {
+    let favClass = '';
+    for (const drink of favorites) {
+      console.log(drink.name);
+      favClass = 'drink__favorite';
+      htmlFav += `<li class="js-cocktail__card ${favClass}" id="${drink.id}"><h2>${drink.name}</h2><img class="drink_img" src=${drink.image} alt=""></li>`;
+    }
   }
   favoriteDataList.innerHTML = htmlFav;
 }
