@@ -4,8 +4,9 @@ const cocktailDataList = document.querySelector('.js-cocktail__list');
 const searchButton = document.querySelector('.js-search__button');
 let cocktailData = [];
 
-function handleListClick(event) {
+function handleCardClick(event) {
   const clickedItemId = event.currentTarget.id;
+  console.log(event.currentTarget);
   console.log(clickedItemId);
   console.log('he clickado');
 }
@@ -23,8 +24,9 @@ function emptyAvatar(data) {
 
 function renderFilteredList(data) {
   for (const drink of data) {
-    cocktailDataList.innerHTML += `<li><h2>${drink.name}</h2><img class="drink_img" src=${drink.image} alt=""></li>`;
+    cocktailDataList.innerHTML += `<li class="js-cocktail__card" id="${drink.id}"><h2>${drink.name}</h2><img class="drink_img" src=${drink.image} alt=""></li>`;
   }
+  listenCardClick();
 }
 
 function getFromApi() {
@@ -50,5 +52,11 @@ function handleSearchButton(event) {
   getFromApi();
 }
 
+function listenCardClick() {
+  const cocktailCard = document.querySelectorAll('.js-cocktail__card');
+  for (const drinkItem of cocktailCard) {
+    drinkItem.addEventListener('click', handleCardClick);
+  }
+}
+
 searchButton.addEventListener('click', handleSearchButton);
-cocktailDataList.addEventListener('click', handleListClick);
