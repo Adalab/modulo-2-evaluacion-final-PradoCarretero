@@ -3,6 +3,7 @@ const searchInput = document.querySelector('.js-search__input');
 const cocktailCardList = document.querySelector('.js-cocktail__list');
 let favoriteDataList = document.querySelector('.js-favorite__list');
 const searchButton = document.querySelector('.js-search__button');
+const resetButton = document.querySelector('.js-reset__button');
 let cocktailData = [];
 let favorites = [];
 
@@ -190,6 +191,9 @@ function listenDislikeButton() {
   }
 }
 
+function handleResetButton() {}
+
 searchButton.addEventListener('click', handleSearchButton);
+resetButton.addEventListener('click', handleResetButton);
 
 getLocalStorage();
