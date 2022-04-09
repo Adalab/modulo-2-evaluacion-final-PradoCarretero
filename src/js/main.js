@@ -27,9 +27,8 @@ function renderFavoritesLocal() {
   console.log(favorites);
   favoriteDataList.innerHTML = '';
   for (const drink of favorites) {
-    /* li */
     favClass = 'drink__favorite';
-
+    /* li */
     const favCard = document.createElement('li');
     favCard.classList.add('js-cocktail__card');
     favCard.classList.add(favClass);
@@ -106,21 +105,30 @@ function isFavorite(data) {
 }
 
 function renderFilteredList(data) {
-  let html = '';
-  let htmlFav = '';
   let favClass = '';
   for (const drink of data) {
     const isFav = isFavorite(drink);
-    if (isFav) {
-      favClass = 'drink__favorite';
-      const htmltext = `<li class="js-cocktail__card ${favClass}" id="${drink.id}"><h2>${drink.name}</h2><img class="drink_img" src=${drink.image} alt=""></li>`;
-      html += htmltext;
-    } else {
+    if (isFav !== true) {
       favClass = '';
-      html += `<li class="js-cocktail__card ${favClass}" id="${drink.id}"><h2>${drink.name}</h2><img class="drink_img" src=${drink.image} alt=""></li>`;
+      /* li */
+      const card = document.createElement('li');
+      card.classList.add('js-cocktail__card');
+      card.classList.add(favClass);
+      card.setAttribute('id', drink.id);
+      cocktailCardList.appendChild(card);
+      /* title */
+      const cardTitle = document.createElement('h2');
+      const textCardTitle = document.createTextNode(drink.name);
+      cardTitle.appendChild(textCardTitle);
+      card.appendChild(cardTitle);
+      /* imagen */
+      const cardImg = document.createElement('img');
+      cardImg.classList.add('drink_img');
+      cardImg.src = drink.image;
+      cardImg.alt = drink.name;
+      card.appendChild(cardImg);
     }
   }
-  cocktailCardList.innerHTML = html;
   getLocalStorage();
   listenCardClick();
   listenDislikeButton();
