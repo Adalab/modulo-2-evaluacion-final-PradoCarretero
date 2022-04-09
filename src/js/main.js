@@ -110,18 +110,16 @@ function renderFilteredList(data) {
   let favClass = '';
   for (const drink of data) {
     const isFav = isFavorite(drink);
-    if (isFav !== true) {
-      /* favClass = 'drink__favorite';
+    if (isFav) {
+      favClass = 'drink__favorite';
       const htmltext = `<li class="js-cocktail__card ${favClass}" id="${drink.id}"><h2>${drink.name}</h2><img class="drink_img" src=${drink.image} alt=""><button id="${drink.id} class="dislikebutton js-dislike-button">DISLIKE</button></li>`;
-      htmlFav += htmltext;
       html += htmltext;
-    } else { */
+    } else {
       favClass = '';
       html += `<li class="js-cocktail__card ${favClass}" id="${drink.id}"><h2>${drink.name}</h2><img class="drink_img" src=${drink.image} alt=""></li>`;
     }
   }
   cocktailCardList.innerHTML = html;
-  /* favoriteDataList.innerHTML = htmlFav; */
   getLocalStorage();
   listenCardClick();
   listenDislikeButton();
@@ -167,8 +165,11 @@ function handleDislikeClick(event) {
     favorites.splice(favoritesFound, 1);
     console.log('YO ME BORRO');
     console.log(favorites);
+    setFavInLocalStorage();
     renderFavoritesLocal();
+    renderFilteredList();
   }
+
   /* renderFilteredList(cocktailData); */
 }
 
