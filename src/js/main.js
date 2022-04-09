@@ -111,11 +111,7 @@ function renderFilteredList(data) {
   let favClass = '';
   for (const drink of data) {
     const isFav = isFavorite(drink);
-    if (isFav) {
-      favClass = 'drink__favorite';
-      const htmltext = `<li class="js-cocktail__card ${favClass}" id="${drink.id}"><h2>${drink.name}</h2><img class="drink_img" src=${drink.image} alt=""></li>`;
-      html += htmltext;
-    } else {
+    if (isFav !== true) {
       favClass = '';
       html += `<li class="js-cocktail__card ${favClass}" id="${drink.id}"><h2>${drink.name}</h2><img class="drink_img" src=${drink.image} alt=""></li>`;
     }
