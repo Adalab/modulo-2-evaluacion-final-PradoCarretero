@@ -4,6 +4,7 @@ const cocktailCardList = document.querySelector('.js-cocktail__list');
 let favoriteDataList = document.querySelector('.js-favorite__list');
 const searchButton = document.querySelector('.js-search__button');
 const resetButton = document.querySelector('.js-reset__button');
+const formWrapper = document.querySelector('.js-form__wrapper');
 let cocktailData = [];
 let favorites = [];
 
@@ -60,11 +61,27 @@ function renderFavoritesLocal() {
 
 function handleSearchButton(event) {
   event.preventDefault();
-  getFromApi();
+  console.log(searchInput.value);
+  errorMessage.getAttribute('class');
+  if (condition) {
+  }
+  /*   formWrapper.removeChild(errorMessage); */
+  if (searchInput.value === '') {
+    const errorMessage = document.createElement('p');
+    errorMessage.classList.add(error__message);
+    const textErrorMessage = document.createTextNode(
+      'Debe escribir algún valor'
+    );
+    errorMessage.appendChild(textErrorMessage);
+    formWrapper.appendChild(errorMessage);
+  } else {
+    console.log('intento get from apy');
+    getFromApi();
+  }
 }
 
 function getFromApi() {
-  const searchValue = searchInput.value;
+  let searchValue = searchInput.value;
   const url = `https://www.thecocktaildb.com/api/json/v1/1/search.php?s=${searchValue}`;
   fetch(url)
     .then((response) => response.json())
