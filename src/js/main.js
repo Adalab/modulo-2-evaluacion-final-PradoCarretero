@@ -6,26 +6,6 @@ const searchButton = document.querySelector('.js-search__button');
 let cocktailData = [];
 let favorites = [];
 
-function handleCardClick(event) {
-  const clickedItemId = event.currentTarget.id;
-  const objetClicked = cocktailData.find((itemDrink) => {
-    return itemDrink.id === clickedItemId;
-  });
-  const favoritesFound = favorites.findIndex((fav) => {
-    return fav.id === clickedItemId;
-  });
-  if (favoritesFound === -1) {
-    console.log('no estoy entre los favoritos');
-    console.log(favorites);
-    favorites.push(objetClicked);
-  } else {
-    favorites.splice(favoritesFound, 1);
-    console.log('soy favorito');
-  }
-  setFavInLocalStorage();
-  renderFilteredList(cocktailData);
-}
-
 function getLocalStorage() {
   const localStorageFavDrinks = localStorage.getItem('favorites');
 
@@ -35,37 +15,16 @@ function getLocalStorage() {
     const arrayDrinks = JSON.parse(localStorageFavDrinks);
     favorites = arrayDrinks;
 
-    console.log('favoritos desde get local');
-    console.log(favorites);
+    console.log('paso por get local storage');
     renderFavoritesLocal();
   }
 }
 
-function isFavorite(data) {
-  const favoriteFound = favorites.find((fav) => {
-    return fav.id === data.id;
-  });
-  if (favoriteFound === undefined) {
-    return false;
-  } else {
-    return true;
-  }
-}
-
-function emptyAvatar(data) {
-  for (const drink of data) {
-    if (drink.image === null) {
-      drink.image = `https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSgdRaq2P7x32D8eIIf-LoP0nehibaasT5SRQ&usqp=CAU`;
-      renderFilteredList(data);
-    } else {
-      renderFilteredList(data);
-    }
-  }
-}
-
 function renderFavoritesLocal() {
-  favoriteDataList.innerHTML = '';
+  /*  favoriteDataList.innerHTML = ''; */
   let favClass = '';
+  console.log(favorites);
+  favoriteDataList.innerHTML = '';
   for (const drink of favorites) {
     /* li */
     favClass = 'drink__favorite';
@@ -91,33 +50,16 @@ function renderFavoritesLocal() {
     favCardBtn.setAttribute('id', drink.id);
     favCardBtn.classList.add('dislikebutton');
     favCardBtn.classList.add('js-dislike-button');
-    const textfavCardBtn = document.createTextNode('DISLIKE');
+    const textfavCardBtn = document.createTextNode('VENGO DEL LOCAL');
     favCardBtn.appendChild(textfavCardBtn);
     favCard.appendChild(favCardBtn);
   }
   listenDislikeButton();
 }
 
-function renderFilteredList(data) {
-  let html = '';
-  let htmlFav = '';
-  let favClass = '';
-  for (const drink of data) {
-    const isFav = isFavorite(drink);
-    if (isFav) {
-      favClass = 'drink__favorite';
-      const htmltext = `<li class="js-cocktail__card ${favClass}" id="${drink.id}"><h2>${drink.name}</h2><img class="drink_img" src=${drink.image} alt=""><button id="${drink.id} class="dislikebutton js-dislike-button">DISLIKE</button></li>`;
-      htmlFav += htmltext;
-      html += htmltext;
-    } else {
-      favClass = '';
-      html += `<li class="js-cocktail__card ${favClass}" id="${drink.id}"><h2>${drink.name}</h2><img class="drink_img" src=${drink.image} alt=""></li>`;
-    }
-  }
-  cocktailCardList.innerHTML = html;
-  favoriteDataList.innerHTML = htmlFav;
-  listenCardClick();
-  listenDislikeButton();
+function handleSearchButton(event) {
+  event.preventDefault();
+  getFromApi();
 }
 
 function getFromApi() {
@@ -135,37 +77,102 @@ function getFromApi() {
         return newDrink;
       });
       emptyAvatar(cocktailData);
-    });
+    })
+    .catch((error) => console.log(`Ha sucedido un error: ${error}`));
 }
 
-function setFavInLocalStorage() {
-  const stringFavDrinks = JSON.stringify(favorites);
-  localStorage.setItem('favorites', stringFavDrinks);
+function emptyAvatar(data) {
+  console.log('paso por emty av');
+  for (const drink of data) {
+    if (drink.image === null) {
+      drink.image = `https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSgdRaq2P7x32D8eIIf-LoP0nehibaasT5SRQ&usqp=CAU`;
+      renderFilteredList(data);
+    } else {
+      renderFilteredList(data);
+    }
+  }
 }
 
-function handleDislikeClick(event) {
-  console.log('he clic');
-  event.preventDefault();
+function isFavorite(data) {
+  const favoriteFound = favorites.find((fav) => {
+    return fav.id === data.id;
+  });
+  if (favoriteFound === undefined) {
+    return false;
+  } else {
+    return true;
+  }
+}
+
+function renderFilteredList(data) {
+  let html = '';
+  let htmlFav = '';
+  let favClass = '';
+  for (const drink of data) {
+    const isFav = isFavorite(drink);
+    if (isFav) {
+      favClass = 'drink__favorite';
+      const htmltext = `<li class="js-cocktail__card ${favClass}" id="${drink.id}"><h2>${drink.name}</h2><img class="drink_img" src=${drink.image} alt=""></li>`;
+      html += htmltext;
+    } else {
+      favClass = '';
+      html += `<li class="js-cocktail__card ${favClass}" id="${drink.id}"><h2>${drink.name}</h2><img class="drink_img" src=${drink.image} alt=""></li>`;
+    }
+  }
+  cocktailCardList.innerHTML = html;
+  getLocalStorage();
+  listenCardClick();
+  listenDislikeButton();
+}
+
+function handleCardClick(event) {
+  console.log('estoy en handleCardClick');
   const clickedItemId = event.currentTarget.id;
-  console.log(clickedItemId);
   const objetClicked = cocktailData.find((itemDrink) => {
     return itemDrink.id === clickedItemId;
   });
   const favoritesFound = favorites.findIndex((fav) => {
     return fav.id === clickedItemId;
   });
-  if (favoritesFound !== -1) {
+  if (favoritesFound === -1) {
+    console.log('renderizo desde handlecardCLick');
+    favorites.push(objetClicked);
+  } else {
     favorites.splice(favoritesFound, 1);
-    console.log('YO ME BORRO');
-    console.log(favorites);
-    renderFavoritesLocal();
   }
-  /* renderFilteredList(cocktailData); */
+  setFavInLocalStorage();
+  renderFilteredList(cocktailData);
+  renderFavoritesLocal();
 }
 
-function handleSearchButton(event) {
-  event.preventDefault();
-  getFromApi();
+function setFavInLocalStorage() {
+  console.log('paso a set favorites');
+  console.log(favorites);
+  const stringFavDrinks = JSON.stringify(favorites);
+  localStorage.setItem('favorites', stringFavDrinks);
+}
+
+function handleDislikeClick(event) {
+  const clickedItemId = event.currentTarget.id;
+  const objetClicked = cocktailData.find((itemDrink) => {
+    return itemDrink.id === clickedItemId;
+  });
+  const favoritesFound = favorites.findIndex((fav) => {
+    return fav.id === clickedItemId;
+  });
+  if (favoritesFound === -1) {
+    favorites.push(objetClicked);
+    setFavInLocalStorage();
+    renderFilteredList(cocktailData);
+    renderFavoritesLocal();
+  } else {
+    favorites.splice(favoritesFound, 1);
+    console.log('dislike--para borrar');
+    console.log(favorites);
+    setFavInLocalStorage();
+    renderFilteredList(cocktailData);
+    renderFavoritesLocal();
+  }
 }
 
 function listenCardClick() {
@@ -176,7 +183,7 @@ function listenCardClick() {
 }
 
 function listenDislikeButton() {
-  console.log('escuchando');
+  console.log('escuchando al botón dislike');
   const dislikeButton = document.querySelectorAll('.js-dislike-button');
   for (const dislikeItem of dislikeButton) {
     dislikeItem.addEventListener('click', handleDislikeClick);
