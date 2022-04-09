@@ -15,8 +15,7 @@ function getLocalStorage() {
     const arrayDrinks = JSON.parse(localStorageFavDrinks);
     favorites = arrayDrinks;
 
-    console.log('favoritos desde get local');
-    console.log(favorites);
+    console.log('paso por local storage');
     renderFavoritesLocal();
   }
 }
@@ -112,7 +111,7 @@ function renderFilteredList(data) {
     const isFav = isFavorite(drink);
     if (isFav) {
       favClass = 'drink__favorite';
-      const htmltext = `<li class="js-cocktail__card ${favClass}" id="${drink.id}"><h2>${drink.name}</h2><img class="drink_img" src=${drink.image} alt=""><button id="${drink.id} class="dislikebutton js-dislike-button">DISLIKE</button></li>`;
+      const htmltext = `<li class="js-cocktail__card ${favClass}" id="${drink.id}"><h2>${drink.name}</h2><img class="drink_img" src=${drink.image} alt=""></li>`;
       html += htmltext;
     } else {
       favClass = '';
@@ -126,6 +125,35 @@ function renderFilteredList(data) {
 }
 
 function handleCardClick(event) {
+  console.log('estoy en handleCardClick');
+  const clickedItemId = event.currentTarget.id;
+  const objetClicked = cocktailData.find((itemDrink) => {
+    return itemDrink.id === clickedItemId;
+  });
+  const favoritesFound = favorites.findIndex((fav) => {
+    return fav.id === clickedItemId;
+  });
+  if (favoritesFound === -1) {
+    console.log('renderizo desde handlecardCLick');
+    favorites.push(objetClicked);
+    /* } else {
+    favorites.splice(favoritesFound, 1); */
+  }
+  setFavInLocalStorage();
+  renderFilteredList(cocktailData);
+  renderFavoritesLocal();
+}
+
+function setFavInLocalStorage() {
+  for (const item of favorites) {
+    if (item !== null) {
+      const stringFavDrinks = JSON.stringify(favorites);
+      localStorage.setItem('favorites', stringFavDrinks);
+    }
+  }
+}
+
+function handleDislikeClick(event) {
   const clickedItemId = event.currentTarget.id;
   const objetClicked = cocktailData.find((itemDrink) => {
     return itemDrink.id === clickedItemId;
@@ -145,34 +173,6 @@ function handleCardClick(event) {
   renderFilteredList(cocktailData);
 }
 
-function setFavInLocalStorage() {
-  const stringFavDrinks = JSON.stringify(favorites);
-  localStorage.setItem('favorites', stringFavDrinks);
-}
-
-function handleDislikeClick(event) {
-  console.log('he clic');
-  event.preventDefault();
-  const clickedItemId = event.currentTarget.id;
-  console.log(clickedItemId);
-  const objetClicked = cocktailData.find((itemDrink) => {
-    return itemDrink.id === clickedItemId;
-  });
-  const favoritesFound = favorites.findIndex((fav) => {
-    return fav.id === clickedItemId;
-  });
-  if (favoritesFound !== -1) {
-    favorites.splice(favoritesFound, 1);
-    console.log('YO ME BORRO');
-    console.log(favorites);
-    setFavInLocalStorage();
-    renderFavoritesLocal();
-    renderFilteredList();
-  }
-
-  /* renderFilteredList(cocktailData); */
-}
-
 function listenCardClick() {
   const cocktailCard = document.querySelectorAll('.js-cocktail__card');
   for (const drinkItem of cocktailCard) {
@@ -181,7 +181,7 @@ function listenCardClick() {
 }
 
 function listenDislikeButton() {
-  console.log('escuchando');
+  console.log('escuchando al botón dislike');
   const dislikeButton = document.querySelectorAll('.js-dislike-button');
   for (const dislikeItem of dislikeButton) {
     dislikeItem.addEventListener('click', handleDislikeClick);
