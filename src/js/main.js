@@ -22,8 +22,10 @@ function getLocalStorage() {
 }
 
 function renderFavoritesLocal() {
-  favoriteDataList.innerHTML = '';
+  /*  favoriteDataList.innerHTML = ''; */
   let favClass = '';
+  console.log(favorites);
+  favoriteDataList.innerHTML = '';
   for (const drink of favorites) {
     /* li */
     favClass = 'drink__favorite';
@@ -49,7 +51,7 @@ function renderFavoritesLocal() {
     favCardBtn.setAttribute('id', drink.id);
     favCardBtn.classList.add('dislikebutton');
     favCardBtn.classList.add('js-dislike-button');
-    const textfavCardBtn = document.createTextNode('DISLIKE');
+    const textfavCardBtn = document.createTextNode('VENGO DEL LOCAL');
     favCardBtn.appendChild(textfavCardBtn);
     favCard.appendChild(favCardBtn);
   }
@@ -76,7 +78,8 @@ function getFromApi() {
         return newDrink;
       });
       emptyAvatar(cocktailData);
-    });
+    })
+    .catch((error) => console.log(`Ha sucedido un error: ${error}`));
 }
 
 function emptyAvatar(data) {
@@ -90,24 +93,36 @@ function emptyAvatar(data) {
   }
 }
 
+function isFavorite(data) {
+  const favoriteFound = favorites.find((fav) => {
+    return fav.id === data.id;
+  });
+  if (favoriteFound === undefined) {
+    return false;
+  } else {
+    return true;
+  }
+}
+
 function renderFilteredList(data) {
   let html = '';
   let htmlFav = '';
   let favClass = '';
   for (const drink of data) {
     const isFav = isFavorite(drink);
-    if (isFav) {
-      favClass = 'drink__favorite';
+    if (isFav !== true) {
+      /* favClass = 'drink__favorite';
       const htmltext = `<li class="js-cocktail__card ${favClass}" id="${drink.id}"><h2>${drink.name}</h2><img class="drink_img" src=${drink.image} alt=""><button id="${drink.id} class="dislikebutton js-dislike-button">DISLIKE</button></li>`;
       htmlFav += htmltext;
       html += htmltext;
-    } else {
+    } else { */
       favClass = '';
       html += `<li class="js-cocktail__card ${favClass}" id="${drink.id}"><h2>${drink.name}</h2><img class="drink_img" src=${drink.image} alt=""></li>`;
     }
   }
   cocktailCardList.innerHTML = html;
-  favoriteDataList.innerHTML = htmlFav;
+  /* favoriteDataList.innerHTML = htmlFav; */
+  getLocalStorage();
   listenCardClick();
   listenDislikeButton();
 }
@@ -130,17 +145,6 @@ function handleCardClick(event) {
   }
   setFavInLocalStorage();
   renderFilteredList(cocktailData);
-}
-
-function isFavorite(data) {
-  const favoriteFound = favorites.find((fav) => {
-    return fav.id === data.id;
-  });
-  if (favoriteFound === undefined) {
-    return false;
-  } else {
-    return true;
-  }
 }
 
 function setFavInLocalStorage() {
