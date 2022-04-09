@@ -15,7 +15,7 @@ function getLocalStorage() {
     const arrayDrinks = JSON.parse(localStorageFavDrinks);
     favorites = arrayDrinks;
 
-    console.log('paso por local storage');
+    console.log('paso por get local storage');
     renderFavoritesLocal();
   }
 }
@@ -82,6 +82,7 @@ function getFromApi() {
 }
 
 function emptyAvatar(data) {
+  console.log('paso por emty av');
   for (const drink of data) {
     if (drink.image === null) {
       drink.image = `https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSgdRaq2P7x32D8eIIf-LoP0nehibaasT5SRQ&usqp=CAU`;
@@ -136,8 +137,8 @@ function handleCardClick(event) {
   if (favoritesFound === -1) {
     console.log('renderizo desde handlecardCLick');
     favorites.push(objetClicked);
-    /* } else {
-    favorites.splice(favoritesFound, 1); */
+  } else {
+    favorites.splice(favoritesFound, 1);
   }
   setFavInLocalStorage();
   renderFilteredList(cocktailData);
@@ -145,12 +146,10 @@ function handleCardClick(event) {
 }
 
 function setFavInLocalStorage() {
-  for (const item of favorites) {
-    if (item !== null) {
-      const stringFavDrinks = JSON.stringify(favorites);
-      localStorage.setItem('favorites', stringFavDrinks);
-    }
-  }
+  console.log('paso a set favorites');
+  console.log(favorites);
+  const stringFavDrinks = JSON.stringify(favorites);
+  localStorage.setItem('favorites', stringFavDrinks);
 }
 
 function handleDislikeClick(event) {
@@ -162,15 +161,18 @@ function handleDislikeClick(event) {
     return fav.id === clickedItemId;
   });
   if (favoritesFound === -1) {
-    console.log('no estoy entre los favoritos');
-    console.log(favorites);
     favorites.push(objetClicked);
+    setFavInLocalStorage();
+    renderFilteredList(cocktailData);
+    renderFavoritesLocal();
   } else {
     favorites.splice(favoritesFound, 1);
-    console.log('soy favorito');
+    console.log('dislike--para borrar');
+    console.log(favorites);
+    setFavInLocalStorage();
+    renderFilteredList(cocktailData);
+    renderFavoritesLocal();
   }
-  setFavInLocalStorage();
-  renderFilteredList(cocktailData);
 }
 
 function listenCardClick() {
