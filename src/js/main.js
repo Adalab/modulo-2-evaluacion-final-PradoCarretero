@@ -191,7 +191,14 @@ function listenDislikeButton() {
   }
 }
 
-function handleResetButton() {}
+function handleResetButton(event) {
+  event.preventDefault();
+  cocktailCardList.innerHTML = '';
+  searchInput.value = '';
+  favorites = [];
+  setFavInLocalStorage();
+  renderFavoritesLocal();
+}
 
 searchButton.addEventListener('click', handleSearchButton);
 resetButton.addEventListener('click', handleResetButton);
