@@ -65,8 +65,8 @@ function handleSearchButton(event) {
 
 function getFromApi() {
   const searchValue = searchInput.value;
-  const url = `https://www.thecocktaildb.com/api/json/v1/1/search.php?s=${searchValue}`;
-  fetch(url)
+  const url = `www.thecocktaildb.com/api/json/v1/1/search.php?s=${searchValue}`;
+  fetch(url, { method: 'get' })
     .then((response) => response.json())
     .then((data) => {
       cocktailData = data.drinks.map((drink) => {
