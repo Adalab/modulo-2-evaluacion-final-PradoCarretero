@@ -28,24 +28,28 @@ function renderFavoritesLocal() {
   favoriteDataList.innerHTML = '';
   for (const drink of favorites) {
     /* li */
-    favClass = 'drink__favorite';
+    favClass = 'card__favorite';
 
     const favCard = document.createElement('li');
     favCard.classList.add('js-cocktail__card');
     favCard.classList.add(favClass);
+    favCard.classList.add('card');
     favCard.setAttribute('id', drink.id);
     favoriteDataList.appendChild(favCard);
-    /* title */
-    const favCardTitle = document.createElement('h2');
-    const textFavCardTitle = document.createTextNode(drink.name);
-    favCardTitle.appendChild(textFavCardTitle);
-    favCard.appendChild(favCardTitle);
+
     /* imagen */
     const favCardImg = document.createElement('img');
-    favCardImg.classList.add('drink_img');
+    favCardImg.classList.add('card__img');
     favCardImg.src = drink.image;
     favCardImg.alt = drink.name;
     favCard.appendChild(favCardImg);
+    /* title */
+    const favCardTitle = document.createElement('h2');
+    favCardTitle.classList.add('card__title');
+    favCardTitle.classList.add('card__title--fav');
+    const textFavCardTitle = document.createTextNode(drink.name);
+    favCardTitle.appendChild(textFavCardTitle);
+    favCard.appendChild(favCardTitle);
     /* boton */
     const favCardBtn = document.createElement('button');
     favCardBtn.setAttribute('id', drink.id);
@@ -112,12 +116,12 @@ function renderFilteredList(data) {
   for (const drink of data) {
     const isFav = isFavorite(drink);
     if (isFav) {
-      favClass = 'drink__favorite';
-      const htmltext = `<li class="js-cocktail__card ${favClass}" id="${drink.id}"><h2>${drink.name}</h2><img class="drink_img" src=${drink.image} alt=""></li>`;
+      favClass = 'card__favorite';
+      const htmltext = `<li class="js-cocktail__card ${favClass} card" id="${drink.id}"><img class="card__img" src=${drink.image} alt=""><h2 class="card__title card__title--fav">${drink.name}</h2></li>`;
       html += htmltext;
     } else {
       favClass = '';
-      html += `<li class="js-cocktail__card ${favClass}" id="${drink.id}"><h2>${drink.name}</h2><img class="drink_img" src=${drink.image} alt=""></li>`;
+      html += `<li class="js-cocktail__card ${favClass} card" id="${drink.id}"><img class="card__img" src=${drink.image} alt=""><h2 class="card__title">${drink.name}</h2></li>`;
     }
   }
   cocktailCardList.innerHTML = html;

@@ -1,0 +1,68 @@
+body {
+  background-color: $brandlight;
+  font-family: 'Nunito', sans-serif;
+}
+
+input {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+}
+
+.page {
+  padding: 30px 30px;
+}
+.main {
+  &__logo {
+    height: 80px;
+    margin-bottom: 30px;
+  }
+  &__title {
+    padding: 10px 0px;
+    font-size: 30px;
+    color: $secundarylight;
+  }
+  &__search {
+    height: 20px;
+  }
+  &__button {
+    background-color: $branddark;
+    border-radius: 15px;
+    padding: 5px 20px;
+    border-style: none;
+    color: $brandlight;
+
+    &:hover {
+      opacity: 4;
+      transform: translate(0, -4px);
+      cursor: pointer;
+    }
+  }
+}
+.card {
+  height: 250px;
+  margin: 20px 0px;
+  border-radius: 30px;
+  text-align: center;
+  background-color: $brandmedium;
+
+  &__img {
+    height: 150px;
+    margin: 20px 10px;
+    border-radius: 20px;
+  }
+  &__title {
+    color: $brandlight;
+    &--fav {
+      color: $branddarker;
+    }
+  }
+  &__favorite {
+    background-color: $branddark;
+  }
+}
+
+.list__wrapper {
+  display: flex;
+  flex-direction: row;
+}

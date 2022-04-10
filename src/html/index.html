@@ -4,27 +4,47 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Nunito:wght@300;500&display=swap"
+      rel="stylesheet"
+    />
     <link rel="stylesheet" href="./assets/css/main.css" />
     <title>Ejercicio</title>
   </head>
 
   <body>
-    <h1>Buscador cócteles</h1>
-    <form action="">
-      <input
-        class="js-search__input"
-        type="text"
-        name=""
-        id=""
-        placeholder="P.ej margarita"
+    <header></header>
+    <div class="page">
+      <img
+        class="main__logo"
+        src="./assets/images/Logotipo.png"
+        alt="Logo Sundrink"
       />
-      <button class="js-search__button">Buscar</button>
-      <button class="js-reset__button">Reset</button>
-    </form>
-    <div class="wrapper">
-      <ul class="js-favorite__list"></ul>
-      <ul class="js-cocktail__list"></ul>
+      <form action="">
+        <input
+          class="js-search__input main__search"
+          type="text"
+          name=""
+          id=""
+          placeholder="P.ej margarita"
+        />
+        <input
+          type="button"
+          value="Buscar"
+          class="js-search__button main__button"
+        />
+        <button class="js-reset__button main__button">Reset</button>
+      </form>
+      <div class="list__wrapper">
+        <ul class="js-favorite__list"></ul>
+        <ul class="js-cocktail__list"></ul>
+      </div>
     </div>
+
     <script type="text/javascript" src="./assets/js/main.js"></script>
   </body>
 </html>
