@@ -24,7 +24,6 @@ function getLocalStorage() {
 function renderFavoritesLocal() {
   /*  favoriteDataList.innerHTML = ''; */
   let favClass = '';
-  console.log(favorites);
   favoriteDataList.innerHTML = '';
   for (const drink of favorites) {
     /* li */
@@ -34,12 +33,14 @@ function renderFavoritesLocal() {
     favCard.classList.add('js-cocktail__card');
     favCard.classList.add(favClass);
     favCard.classList.add('card');
+    favCard.classList.add('card--fav');
     favCard.setAttribute('id', drink.id);
     favoriteDataList.appendChild(favCard);
 
     /* imagen */
     const favCardImg = document.createElement('img');
     favCardImg.classList.add('card__img');
+    favCardImg.classList.add('card__img--fav');
     favCardImg.src = drink.image;
     favCardImg.alt = drink.name;
     favCard.appendChild(favCardImg);
@@ -51,13 +52,18 @@ function renderFavoritesLocal() {
     favCardTitle.appendChild(textFavCardTitle);
     favCard.appendChild(favCardTitle);
     /* boton */
-    const favCardBtn = document.createElement('button');
+    const favCardBtn = document.createElement('a');
     favCardBtn.setAttribute('id', drink.id);
-    favCardBtn.classList.add('dislikebutton');
+    favCardBtn.classList.add('card__favorite--dislbtn');
     favCardBtn.classList.add('js-dislike-button');
-    const textfavCardBtn = document.createTextNode('VENGO DEL LOCAL');
-    favCardBtn.appendChild(textfavCardBtn);
     favCard.appendChild(favCardBtn);
+
+    const favCardDislike = document.createElement('img');
+    favCardDislike.classList.add('card__favorite--dislimg');
+    favCardBtn.appendChild(favCardDislike);
+    favCardDislike.src = './assets/images/heart-circle-minus-solid.svg';
+
+    /* favCard.innerHTML = `<i class="fa-solid fa-heart-circle-minus dislikebutton js-dislike-button" id=${drink.id}></i>`; */
   }
   listenDislikeButton();
 }

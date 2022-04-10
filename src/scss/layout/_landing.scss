@@ -21,6 +21,7 @@ input {
     padding: 10px 0px;
     font-size: 30px;
     color: $secundarylight;
+    cursor: auto;
   }
   &__search {
     height: 20px;
@@ -41,28 +42,66 @@ input {
 }
 .card {
   height: 250px;
-  margin: 20px 0px;
+  margin-bottom: 20px;
   border-radius: 30px;
   text-align: center;
   background-color: $brandmedium;
+  &:hover {
+    cursor: pointer;
+  }
+  &--fav {
+    height: 50px;
+    border-radius: 15px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0px 7px;
+    margin-bottom: 6px;
+
+    &:hover {
+      cursor: auto;
+    }
+  }
 
   &__img {
     height: 150px;
     margin: 20px 10px;
     border-radius: 20px;
+
+    &--fav {
+      height: 40px;
+      border-radius: 10px;
+      margin: 0px;
+    }
   }
   &__title {
     color: $brandlight;
     &--fav {
       color: $branddarker;
+      padding: 0px 10px;
     }
   }
   &__favorite {
     background-color: $branddark;
+    &--dislbtn {
+      &:hover {
+        cursor: pointer;
+      }
+    }
+    &--dislimg {
+      height: 25px;
+    }
   }
 }
 
-.list__wrapper {
-  display: flex;
-  flex-direction: row;
+.list {
+  &__wrapper {
+    display: flex;
+    flex-direction: row;
+    margin-top: 40px;
+  }
+
+  &__favorite {
+  }
 }
