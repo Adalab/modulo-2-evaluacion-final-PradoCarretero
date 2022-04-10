@@ -147,10 +147,12 @@ function handleCardClick(event) {
 }
 
 function setFavInLocalStorage() {
-  console.log('paso a set favorites');
-  console.log(favorites);
-  const stringFavDrinks = JSON.stringify(favorites);
-  localStorage.setItem('favorites', stringFavDrinks);
+  for (const drink of cocktailData) {
+    if (drink != null) {
+      const stringFavDrinks = JSON.stringify(favorites);
+      localStorage.setItem('favorites', stringFavDrinks);
+    }
+  }
 }
 
 function handleDislikeClick(event) {
