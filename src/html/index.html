@@ -17,36 +17,38 @@
   </head>
 
   <body>
-    <header></header>
-    <div class="page">
-      <img
-        class="main__logo"
-        src="./assets/images/Logotipo.png"
-        alt="Logo Sundrink"
-      />
-      <form action="">
-        <input
-          class="js-search__input main__search"
-          type="text"
-          name=""
-          id=""
-          placeholder="P.ej margarita"
+    <include src="./partials/header.html"></include>
+    <main class="main__page">
+      <div class="main__wrapper">
+        <img
+          class="main__logo"
+          src="./assets/images/Logotipo.png"
+          alt="Logo Sundrink"
         />
-        <input
-          type="button"
-          value="Buscar"
-          class="js-search__button main__button"
-          title="Buscar"
-        />
-        <button class="js-reset__button main__button" title="Reset">
-          Reset
-        </button>
-      </form>
-      <div class="list__wrapper">
-        <ul class="js-favorite__list list__favorite"></ul>
-        <ul class="js-cocktail__list list__cocktail"></ul>
+        <form action="">
+          <input
+            class="js-search__input main__search"
+            type="text"
+            name=""
+            id=""
+            placeholder="P.ej margarita"
+          />
+          <input
+            type="button"
+            value="Buscar"
+            class="js-search__button main__button"
+            title="Buscar"
+          />
+          <button class="js-reset__button main__button" title="Reset">
+            Reset
+          </button>
+        </form>
+        <div class="list__wrapper">
+          <ul class="js-favorite__list list__favorite"></ul>
+          <ul class="js-cocktail__list list__cocktail"></ul>
+        </div>
       </div>
-    </div>
+    </main>
 
     <script type="text/javascript" src="./assets/js/main.js"></script>
   </body>

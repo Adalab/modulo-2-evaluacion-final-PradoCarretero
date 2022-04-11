@@ -1,0 +1,12 @@
+.header {
+  &__page {
+    height: 100vh;
+    overflow: hidden;
+    display: flex;
+
+    justify-content: center;
+    align-items: center;
+  }
+  &__image {
+  }
+}

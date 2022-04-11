@@ -1,23 +1,27 @@
 body {
-  background-color: $brandlight;
   font-family: 'Nunito', sans-serif;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  @include tablet {
-    align-items: flex-start;
-  }
 }
 
-.page {
-  padding: 30px 30px;
-  min-width: 320px;
-  @include tablet {
-    min-width: none;
-    width: auto;
-  }
-}
 .main {
+  &__page {
+    background-color: $brandlight;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    @include tablet {
+      align-items: flex-start;
+    }
+  }
+  &__wrapper {
+    padding: 30px 30px;
+    min-width: 320px;
+    @include tablet {
+      min-width: none;
+      width: auto;
+    }
+  }
+
   &__logo {
     width: 260px;
     margin-bottom: 30px;
