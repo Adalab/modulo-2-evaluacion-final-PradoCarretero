@@ -3,10 +3,44 @@
     height: 100vh;
     overflow: hidden;
     display: flex;
-
     justify-content: center;
     align-items: center;
+    flex-direction: column;
   }
   &__image {
+    z-index: 99;
+  }
+  &__gradient {
+    overflow: hidden;
+    height: 100%;
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    position: absolute;
+    background-color: $secundarylight;
+    &--1 {
+      width: 50%;
+      background-color: $brandmedium;
+    }
+    &--2 {
+      width: 50%;
+      background-color: $secundarylight;
+    }
+    /*  background: url('../images/degradado-5.png');
+    background-repeat: repeat;
+    background-position: center center;
+    position: absolute; */
+    /* animation */
+    animation-name: intro;
+    animation-duration: 5s;
+    animation-iteration-count: 100;
+  }
+}
+@keyframes intro {
+  from {
+    transform: translateX(-25%);
+  }
+  to {
+    transform: translateX(20%);
   }
 }
