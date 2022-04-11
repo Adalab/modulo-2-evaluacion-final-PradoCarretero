@@ -35,7 +35,18 @@ body {
   }
   &__search {
     height: 20px;
+    box-shadow: 0px;
     color: $branddarker;
+    border-radius: 5px;
+    &:active {
+      border: solid 3px $brandmedium;
+      border-radius: 5px;
+    }
+    &:focus {
+      border-radius: 5px;
+      border: solid 3px $brandmedium;
+      outline: 0 none;
+    }
   }
   &__button {
     background-color: $secundarylight;
