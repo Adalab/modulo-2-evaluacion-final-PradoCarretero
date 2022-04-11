@@ -86,7 +86,7 @@ function getFromApi() {
       });
       emptyAvatar(cocktailData);
     });
-  /* .catch((error) => console.log(`Ha sucedido un error: ${error}`)); */
+  .catch((error) => console.log(`Ha sucedido un error: ${error}`));
 }
 
 function emptyAvatar(data) {
@@ -187,12 +187,8 @@ function handleCardClick(event) {
 }
 
 function setFavInLocalStorage() {
-  /*   for (const drink of cocktailData) {
-    if (drink !== null) { */
   const stringFavDrinks = JSON.stringify(favorites);
   localStorage.setItem('favorites', stringFavDrinks);
-  /*   }
-  } */
 }
 
 function handleDislikeClick(event) {

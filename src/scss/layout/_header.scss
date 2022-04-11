@@ -17,11 +17,12 @@
     display: grid;
     grid-template-columns: 1fr 1.2fr 1fr;
     grid-template-rows: 1fr;
+    align-items: center;
     position: absolute;
     background-color: $secundarylight;
     &--1 {
       width: 100%;
-      height: 100%;
+      height: 300px;
       background-color: $brandmedium;
       animation-name: intro;
       animation-duration: 13s;
