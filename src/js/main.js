@@ -158,7 +158,7 @@ function handleCardClick(event) {
 
 function setFavInLocalStorage() {
   for (const drink of cocktailData) {
-    if (drink != null) {
+    if (drink !== null) {
       const stringFavDrinks = JSON.stringify(favorites);
       localStorage.setItem('favorites', stringFavDrinks);
     }

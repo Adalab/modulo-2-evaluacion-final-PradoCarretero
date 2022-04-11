@@ -1,20 +1,25 @@
 body {
   background-color: $brandlight;
   font-family: 'Nunito', sans-serif;
-}
-
-input {
-  -webkit-appearance: none;
-  -moz-appearance: none;
-  appearance: none;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  @include tablet {
+    align-items: flex-start;
+  }
 }
 
 .page {
   padding: 30px 30px;
+  min-width: 320px;
+  @include tablet {
+    min-width: none;
+    width: auto;
+  }
 }
 .main {
   &__logo {
-    height: 80px;
+    width: 260px;
     margin-bottom: 30px;
   }
   &__title {
@@ -25,18 +30,20 @@ input {
   }
   &__search {
     height: 20px;
+    color: $branddarker;
   }
   &__button {
-    background-color: $branddark;
+    background-color: $secundarylight;
     border-radius: 15px;
-    padding: 5px 20px;
     border-style: none;
     color: $brandlight;
-
+    padding: 5px 7px;
     &:hover {
-      opacity: 4;
-      transform: translate(0, -4px);
+      transform: translate(0, -1px);
       cursor: pointer;
+    }
+    @include tablet {
+      padding: 5px 20px;
     }
   }
 }
@@ -48,6 +55,13 @@ input {
   background-color: $brandmedium;
   &:hover {
     cursor: pointer;
+  }
+  @include tablet {
+    height: 220px;
+    margin-bottom: 20px;
+    margin-right: 20px;
+    flex-grow: 1;
+    max-width: 220px;
   }
   &--fav {
     height: 50px;
@@ -62,11 +76,14 @@ input {
     &:hover {
       cursor: auto;
     }
+    @include desktop {
+      width: 250px;
+    }
   }
 
   &__img {
     height: 150px;
-    margin: 20px 10px;
+    margin: 15px 10px;
     border-radius: 20px;
 
     &--fav {
@@ -78,19 +95,19 @@ input {
   &__title {
     color: $brandlight;
     &--fav {
-      color: $branddarker;
+      color: $tertiarylight;
       padding: 0px 10px;
     }
   }
   &__favorite {
-    background-color: $branddark;
+    background-color: $secundarylight;
     &--dislbtn {
       &:hover {
         cursor: pointer;
       }
     }
     &--dislimg {
-      height: 25px;
+      height: 35px;
     }
   }
 }
@@ -98,10 +115,26 @@ input {
 .list {
   &__wrapper {
     display: flex;
-    flex-direction: row;
-    margin-top: 40px;
+    flex-direction: column;
+    justify-content: center;
+    margin-top: 100px;
+
+    @include tablet {
+      margin-top: 40px;
+      flex-direction: row;
+    }
   }
 
   &__favorite {
+  }
+  &__cocktail {
+    @include tablet {
+      padding-left: 30px;
+      display: flex;
+      flex-direction: row;
+      flex-wrap: wrap;
+      justify-content: space-around;
+      justify-content: left;
+    }
   }
 }
