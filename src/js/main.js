@@ -81,7 +81,9 @@ function getFromApi() {
           id: drink.idDrink,
           name: drink.strDrink,
           image: drink.strDrinkThumb,
+          igridients: drink.strTags,
         };
+        console.log(newDrink);
         return newDrink;
       });
       emptyAvatar(cocktailData);
@@ -160,6 +162,15 @@ function renderFilteredList(data) {
       const textCardTitle = document.createTextNode(drink.name);
       cardListTitle.appendChild(textCardTitle);
       cardList.appendChild(cardListTitle);
+      /* ingridients */
+      if (drink.igridients === 'Fruity') {
+        console.log('prueba');
+        const textCardTitle2 = document.createTextNode('Contiene fruta');
+        cardListTitle.appendChild(textCardTitle2);
+      } else {
+        const textCardTitle2 = document.createTextNode('Sin nada especial');
+        cardListTitle.appendChild(textCardTitle2);
+      }
     }
   }
 
@@ -176,14 +187,16 @@ function handleCardClick(event) {
   const favoritesFound = favorites.findIndex((fav) => {
     return fav.id === clickedItemId;
   });
-  if (favoritesFound === -1) {
+
+  console.log(objetClicked.name);
+  /* if (favoritesFound === -1) {
     favorites.push(objetClicked);
   } else {
     favorites.splice(favoritesFound, 1);
   }
   setFavInLocalStorage();
   renderFilteredList(cocktailData);
-  renderFavoritesLocal();
+  renderFavoritesLocal(); */
 }
 
 function setFavInLocalStorage() {
