@@ -4,8 +4,14 @@ const cocktailCardList = document.querySelector('.js-cocktail__list');
 let favoriteDataList = document.querySelector('.js-favorite__list');
 const searchButton = document.querySelector('.js-search__button');
 const resetButton = document.querySelector('.js-reset__button');
+/* const listCat = document.querySelector('.js-listCat'); */
+const randomDataList = document.querySelector('.js-random__list');
+const randomWrapper = document.querySelector('.js-random_wrapper');
+const listWrapper = document.querySelector('.js-list_wrapper');
 let cocktailData = [];
 let favorites = [];
+/* let categories = []; */
+let randomData = [];
 
 function getLocalStorage() {
   const localStorageFavDrinks = localStorage.getItem('favorites');
@@ -23,6 +29,7 @@ function getLocalStorage() {
 function renderFavoritesLocal() {
   let favClass = '';
   favoriteDataList.innerHTML = '';
+
   for (const drink of favorites) {
     favClass = 'card__favorite';
     /* li */
@@ -68,6 +75,11 @@ function renderFavoritesLocal() {
 function handleSearchButton(event) {
   event.preventDefault();
   getFromApi();
+  hideLists();
+}
+
+function hideLists() {
+  randomWrapper.classList.add('hidde');
 }
 
 function getFromApi() {
@@ -112,6 +124,14 @@ function isFavorite(data) {
 function renderFilteredList(data) {
   let favClass = '';
   cocktailCardList.innerHTML = '';
+
+  /* general title */
+  const listTitle = document.createElement('h2');
+  const textlistTitle = document.createTextNode(
+    `Resultados de búsqueda de ${searchInput.value}`
+  );
+  listTitle.appendChild(textlistTitle);
+  listWrapper.appendChild(listTitle);
 
   for (const drink of data) {
     const isFav = isFavorite(drink);
@@ -185,6 +205,68 @@ function handleCardClick(event) {
   renderFilteredList(cocktailData);
   renderFavoritesLocal();
 }
+/* function getFromApiCategories() {
+  const url = `https://www.thecocktaildb.com/api/json/v1/1/list.php?c=list`;
+  fetch(url)
+    .then((response) => response.json())
+    .then((data) => {
+      console.log(data);
+      categories = data.drinks.map((category) => {
+        console.log(category);
+        return category;
+      });
+      renderCat(categories);
+    });
+} */
+
+/* function renderCat(categories) {
+  for (const category of categories) {
+    listCat.innerHTML += `<li> <p>${category.strCategory}</p></li>`;
+  }
+} */
+
+function getFomApiRandom() {
+  const url = `https://www.thecocktaildb.com/api/json/v1/1/random.php`;
+  fetch(url)
+    .then((response) => response.json())
+    .then((data) => {
+      randomData = data.drinks.map((random) => {
+        const newDrinkRandom = {
+          id: random.idDrink,
+          name: random.strDrink,
+          image: random.strDrinkThumb,
+        };
+        return newDrinkRandom;
+      });
+      renderRandom();
+    })
+    .catch((error) => console.log(`Ha sucedido un error: ${error}`));
+}
+
+function renderRandom() {
+  randomDataList.innerHTML += '';
+  for (const drink of randomData) {
+    const randomList = document.createElement('li');
+    randomList.classList.add('js-cocktail__card');
+    randomList.classList.add('card');
+    randomList.setAttribute('id', drink.id);
+    randomDataList.appendChild(randomList);
+
+    /* imagen */
+    const randomListImg = document.createElement('img');
+    randomListImg.classList.add('card__img');
+    randomListImg.src = drink.image;
+    randomListImg.alt = drink.name;
+    randomList.appendChild(randomListImg);
+    /* title */
+    const randomListTitle = document.createElement('h2');
+    randomListTitle.classList.add('card__title');
+    randomListTitle.classList.add('card__title--fav');
+    const textrandomTitle = document.createTextNode(drink.name);
+    randomListTitle.appendChild(textrandomTitle);
+    randomList.appendChild(randomListTitle);
+  }
+}
 
 function setFavInLocalStorage() {
   const stringFavDrinks = JSON.stringify(favorites);
@@ -240,3 +322,9 @@ searchButton.addEventListener('click', handleSearchButton);
 resetButton.addEventListener('click', handleResetButton);
 
 getLocalStorage();
+/* getFromApiCategories();
+ */
+getFomApiRandom();
+getFomApiRandom();
+getFomApiRandom();
+getFomApiRandom();
